@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+    
+    <!-- Google Fonts: Roboto & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <main class="container">
+        <h1 class="title">Generador de Contraseñas</h1>
+        
+        <div class="card result-card">
+            <span id="result" class="result-text"></span>
+            <button class="btn-icon ripple" id="clipboard" title="Copiar al portapapeles">
+                <i class="ph ph-copy"></i>
+            </button>
+        </div>
+        
+        <div class="card settings-card">
+            <div class="length-setting">
+                <div class="length-header">
+                    <label>Longitud</label>
+                    <span id="length-val" class="length-val">16</span>
+                </div>
+                <input type="range" id="length" min="4" max="32" value="16" class="range-slider">
+            </div>
+            
+            <div class="toggles-grid">
+                <div class="setting">
+                    <span class="setting-label">Mayúsculas</span>
+                    <label class="switch">
+                        <input type="checkbox" id="uppercase" checked>
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+                
+                <div class="setting">
+                    <span class="setting-label">Minúsculas</span>
+                    <label class="switch">
+                        <input type="checkbox" id="lowercase" checked>
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+                
+                <div class="setting">
+                    <span class="setting-label">Números</span>
+                    <label class="switch">
+                        <input type="checkbox" id="numbers" checked>
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+                
+                <div class="setting">
+                    <span class="setting-label">Símbolos</span>
+                    <label class="switch">
+                        <input type="checkbox" id="symbols" checked>
+                        <span class="slider-round"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="strength-container">
+                <span class="strength-label">Fuerza</span>
+                <div class="strength-indicator">
+                    <span id="strength-text" class="strength-text">MEDIA</span>
+                    <div class="strength-bars">
+                        <div class="bar" id="bar-1"></div>
+                        <div class="bar" id="bar-2"></div>
+                        <div class="bar" id="bar-3"></div>
+                        <div class="bar" id="bar-4"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-primary ripple" id="generate">
+                GENERAR CONTRASEÑA
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Desarrollado por <a href="https://github.com/aalexiscs" target="_blank" rel="noopener noreferrer" class="github-link"><i class="ph-fill ph-github-logo"></i> @aalexiscs</a></p>
+    </footer>
+
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Custom JS -->
+    <script src="./js/script.js" defer></script>
+</body>
+</html>
