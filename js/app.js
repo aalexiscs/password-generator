@@ -19,6 +19,7 @@ const toggleUpper     = document.getElementById('toggleUpper');
 const toggleLower     = document.getElementById('toggleLower');
 const toggleNumbers   = document.getElementById('toggleNumbers');
 const toggleSymbols   = document.getElementById('toggleSymbols');
+const toggleAutoCopy  = document.getElementById('toggleAutoCopy');
 const generateBtn     = document.getElementById('generateBtn');
 const passwordText    = document.getElementById('passwordText');
 const copyBtn         = document.getElementById('copyBtn');
@@ -80,6 +81,11 @@ function generatePassword() {
   displayPassword(currentPassword);
   updateStrength(currentPassword);
   enableCopyBtn();
+
+  // Auto-copy if enabled
+  if (toggleAutoCopy && toggleAutoCopy.checked) {
+    copyPassword();
+  }
 }
 
 // ── Cryptographically secure random char ────────────────────

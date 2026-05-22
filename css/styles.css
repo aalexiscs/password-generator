@@ -860,6 +860,91 @@ body {
   color: var(--label-primary);
 }
 
+/* ============================================================
+   Auto-copy Checkbox
+   ============================================================ */
+.auto-copy-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  padding: 2px 0;
+}
+
+.auto-copy-check {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.auto-copy-check input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.auto-copy-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--label-quaternary);
+  background: transparent;
+  transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.auto-copy-check-icon {
+  font-size: 14px;
+  color: #FFFFFF;
+  font-variation-settings: 'FILL' 1, 'wght' 700;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity var(--transition), transform var(--spring);
+}
+
+.auto-copy-check input:checked + .auto-copy-box {
+  background: var(--focus-purple);
+  border-color: var(--focus-purple);
+  box-shadow: 0 2px 8px rgba(117, 66, 229, 0.35);
+}
+
+.auto-copy-check input:checked + .auto-copy-box .auto-copy-check-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.auto-copy-check input:focus-visible + .auto-copy-box {
+  outline: 3px solid rgba(117, 66, 229, 0.35);
+  outline-offset: 2px;
+}
+
+.auto-copy-label:hover .auto-copy-box {
+  border-color: var(--focus-purple);
+  box-shadow: 0 0 0 4px rgba(117, 66, 229, 0.08);
+}
+
+.auto-copy-text {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--label-secondary);
+  transition: color var(--transition);
+}
+
+.auto-copy-label:hover .auto-copy-text {
+  color: var(--label-primary);
+}
+
+.auto-copy-check input:checked ~ .auto-copy-text,
+.auto-copy-label:has(input:checked) .auto-copy-text {
+  color: var(--focus-purple);
+  font-weight: 500;
+}
+
 /* Pop-in (password text) */
 @keyframes popIn {
   0%   { transform: scale(0.88); opacity: 0; }
