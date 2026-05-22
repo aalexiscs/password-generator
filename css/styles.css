@@ -1,0 +1,764 @@
+/* ============================================================
+   CSS Variables — Apple / iOS Design System
+   ============================================================ */
+:root {
+  /* iOS System Colors */
+  --ios-blue:        #007AFF;
+  --ios-blue-dark:   #0062CC;
+  --ios-blue-light:  rgba(0, 122, 255, 0.12);
+  --ios-green:       #34C759;
+  --ios-red:         #FF3B30;
+  --ios-orange:      #FF9500;
+  --ios-yellow:      #FFCC00;
+
+  /* iOS System Backgrounds */
+  --bg-primary:      #F2F2F7;
+  --bg-secondary:    #FFFFFF;
+  --bg-tertiary:     #F2F2F7;
+  --bg-grouped:      #EFEFF4;
+
+  /* iOS System Labels */
+  --label-primary:   #1C1C1E;
+  --label-secondary: #8E8E93;
+  --label-tertiary:  #C7C7CC;
+  --label-quaternary:#D1D1D6;
+
+  /* iOS Separators */
+  --separator:       rgba(60, 60, 67, 0.12);
+  --separator-opaque:#C6C6C8;
+
+  /* iOS Fills */
+  --fill-primary:    rgba(120, 120, 128, 0.2);
+  --fill-secondary:  rgba(120, 120, 128, 0.16);
+  --fill-tertiary:   rgba(118, 118, 128, 0.12);
+
+  /* Shadows — Apple style (very subtle) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-btn: 0 4px 14px rgba(0, 122, 255, 0.30);
+
+  /* Radii — iOS style */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  /* Transition */
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --spring:     0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   Body — iOS Light Background
+   ============================================================ */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+               'Helvetica Neue', Arial, sans-serif;
+  color: var(--label-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  /* Subtle noise texture feel via gradient */
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(0, 122, 255, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(52, 199, 89, 0.03) 0%, transparent 60%);
+}
+
+/* ============================================================
+   Background Decoration — removed blobs, kept element for compat
+   ============================================================ */
+.bg-decoration {
+  display: none;
+}
+
+/* ============================================================
+   Layout Container
+   ============================================================ */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+  padding: 8px 0 4px;
+}
+
+.app-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  background: var(--ios-blue);
+  border-radius: 18px; /* iOS app icon radius */
+  box-shadow: 0 8px 24px rgba(0, 122, 255, 0.28), 0 2px 6px rgba(0, 122, 255, 0.18);
+}
+
+.app-icon .material-symbols-rounded {
+  font-size: 34px;
+  color: #FFFFFF;
+  font-variation-settings: 'FILL' 1, 'wght' 400;
+}
+
+.app-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--label-primary);
+  letter-spacing: -0.6px;
+  line-height: 1.15;
+}
+
+.app-subtitle {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--label-secondary);
+  letter-spacing: -0.1px;
+}
+
+/* ============================================================
+   Two-column Panel
+   ============================================================ */
+.panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.panel-left,
+.panel-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-left .card,
+.panel-right .card {
+  flex: 1;
+}
+
+/* ============================================================
+   Cards — iOS white card style
+   ============================================================ */
+.card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--separator);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ============================================================
+   Password Card
+   ============================================================ */
+.card-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--label-secondary);
+}
+
+.card-label-icon {
+  font-size: 14px;
+  color: var(--ios-blue);
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+}
+
+.password-display-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-tertiary);
+  border: 1.5px solid var(--separator);
+  border-radius: var(--radius-md);
+  padding: 14px 14px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.password-display-wrapper:hover {
+  border-color: rgba(0, 122, 255, 0.35);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.07);
+}
+
+.password-display {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.password-text {
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--label-primary);
+  word-break: break-all;
+  display: block;
+  line-height: 1.5;
+  transition: opacity var(--transition);
+}
+
+.password-text.placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--label-tertiary);
+  letter-spacing: 0;
+}
+
+/* Copy button */
+.icon-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--label-secondary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: var(--ios-blue-light);
+  color: var(--ios-blue);
+  transform: scale(1.08);
+}
+
+.icon-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.icon-btn .material-symbols-rounded {
+  font-size: 19px;
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+}
+
+.icon-btn.copied {
+  background: rgba(52, 199, 89, 0.12);
+  color: var(--ios-green);
+}
+
+.icon-btn.copied .material-symbols-rounded {
+  font-variation-settings: 'FILL' 1, 'wght' 500;
+}
+
+/* ============================================================
+   Strength Indicator
+   ============================================================ */
+.strength-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.strength-bar-container {
+  flex: 1;
+  height: 4px;
+  background: var(--fill-tertiary);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.strength-bar {
+  height: 100%;
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
+}
+
+.strength-bar.weak   { background: var(--ios-red);    width: 33%; }
+.strength-bar.medium { background: var(--ios-orange);  width: 66%; }
+.strength-bar.strong { background: var(--ios-green);   width: 100%; }
+
+.strength-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  min-width: 48px;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.strength-label.weak   { color: var(--ios-red); }
+.strength-label.medium { color: var(--ios-orange); }
+.strength-label.strong { color: var(--ios-green); }
+
+/* ============================================================
+   Generate Button — iOS primary action style
+   ============================================================ */
+.btn-generate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 15px 20px;
+  background: var(--ios-blue);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  margin-top: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-generate:hover {
+  background: var(--ios-blue-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 122, 255, 0.38);
+}
+
+.btn-generate:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.20);
+  background: var(--ios-blue-dark);
+}
+
+.btn-generate .btn-icon {
+  font-size: 19px;
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-generate:active .btn-icon {
+  transform: rotate(180deg);
+}
+
+/* ============================================================
+   Options Card
+   ============================================================ */
+.section-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--label-secondary);
+  margin-bottom: 2px;
+}
+
+.option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--label-primary);
+  cursor: default;
+}
+
+.option-icon {
+  font-size: 17px;
+  color: var(--ios-blue);
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+}
+
+.length-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 24px;
+  padding: 0 10px;
+  background: var(--ios-blue-light);
+  color: var(--ios-blue);
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--separator);
+  margin: 0 -2px;
+}
+
+/* ============================================================
+   Slider — iOS style
+   ============================================================ */
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider-min,
+.slider-max {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--label-tertiary);
+  min-width: 18px;
+  text-align: center;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--fill-secondary);
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  border: none;
+}
+
+.slider:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 5px rgba(0, 122, 255, 0.18), 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* ============================================================
+   Toggle Switches — iOS Settings style
+   ============================================================ */
+.toggles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.toggle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle-item:hover {
+  background: rgba(0, 122, 255, 0.04);
+  border-color: rgba(0, 122, 255, 0.2);
+}
+
+.toggle-item:has(input:checked) {
+  background: rgba(52, 199, 89, 0.06);
+  border-color: rgba(52, 199, 89, 0.25);
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toggle-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--label-primary);
+  letter-spacing: -0.1px;
+}
+
+.toggle-example {
+  font-size: 0.65rem;
+  color: var(--label-secondary);
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+}
+
+/* Custom toggle switch — exact iOS style */
+.toggle-switch {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.toggle-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  display: block;
+  width: 42px;
+  height: 24px;
+  background: var(--label-quaternary);
+  border-radius: 99px;
+  position: relative;
+  transition: background var(--transition);
+  cursor: pointer;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  transition: transform var(--transition);
+}
+
+.toggle-switch input:checked + .toggle-track {
+  background: var(--ios-green);
+}
+
+.toggle-switch input:checked + .toggle-track::after {
+  transform: translateX(18px);
+}
+
+.toggle-switch input:focus-visible + .toggle-track {
+  outline: 3px solid rgba(0, 122, 255, 0.35);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 4px 0 8px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--label-secondary);
+  text-decoration: none;
+  transition: color var(--transition), transform var(--transition);
+  letter-spacing: -0.1px;
+}
+
+.footer-link:hover {
+  color: var(--ios-blue);
+  transform: translateY(-1px);
+}
+
+.footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--label-tertiary);
+}
+
+.footer-sep {
+  font-size: 0.75rem;
+  color: var(--separator-opaque);
+  user-select: none;
+}
+
+.footer-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Responsive — single column on mobile
+   ============================================================ */
+@media (max-width: 680px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .toggles-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card {
+    padding: 18px 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .toggles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   Entrance Animations
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.app-header { animation: fadeInUp 0.4s ease both; }
+.panel      { animation: fadeInUp 0.4s ease 0.08s both; }
+.app-footer { animation: fadeInUp 0.4s ease 0.16s both; }
+
+/* Shake (when no charset selected) */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.shake { animation: shake 0.4s ease; }
+
+/* ============================================================
+   Toast Notification — iOS style
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(28, 28, 30, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #FFFFFF;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18), 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
+.toast.toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast-icon {
+  font-size: 18px;
+  color: var(--ios-green);
+  font-variation-settings: 'FILL' 1, 'wght' 400;
+  flex-shrink: 0;
+}
+
+.toast-text {
+  color: #FFFFFF;
+}
+
+/* Pop-in (password text) */
+@keyframes popIn {
+  0%   { transform: scale(0.90); opacity: 0; }
+  60%  { transform: scale(1.04); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+.pop-in { animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }

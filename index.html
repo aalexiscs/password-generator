@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔑</text></svg>" />
+
+    <!-- Material Symbols (icons) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Background decoration (hidden in iOS redesign) -->
+    <div class="bg-decoration" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+    </div>
+
+    <main class="container">
+
+      <!-- ── Header ── -->
+      <header class="app-header">
+        <div class="app-icon">
+          <span class="material-symbols-rounded">lock</span>
+        </div>
+        <div class="app-header-text">
+          <h1 class="app-title">Password Generator</h1>
+          <p class="app-subtitle">Crea contraseñas seguras al instante</p>
+        </div>
+      </header>
+
+      <!-- ── Two-column panel ── -->
+      <div class="panel">
+
+        <!-- LEFT: password output + generate button -->
+        <div class="panel-left">
+          <div class="card password-card">
+
+            <p class="card-label">
+              <span class="material-symbols-rounded card-label-icon">password</span>
+              Tu contraseña
+            </p>
+
+            <!-- Password display -->
+            <div class="password-display-wrapper">
+              <div class="password-display" id="passwordDisplay">
+                <span id="passwordText" class="password-text placeholder">Haz clic en Generar</span>
+              </div>
+              <button class="icon-btn copy-btn" id="copyBtn" title="Copiar contraseña" disabled>
+                <span class="material-symbols-rounded" id="copyIcon">content_copy</span>
+              </button>
+            </div>
+
+            <!-- Strength Indicator -->
+            <div class="strength-section" id="strengthSection" style="display:none">
+              <div class="strength-bar-container">
+                <div class="strength-bar" id="strengthBar"></div>
+              </div>
+              <span class="strength-label" id="strengthLabel"></span>
+            </div>
+
+            <!-- Generate Button (inside left panel) -->
+            <button class="btn-generate" id="generateBtn">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              Generar Contraseña
+            </button>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: options -->
+        <div class="panel-right">
+          <div class="card options-card">
+
+            <h2 class="section-title">Opciones</h2>
+
+            <!-- Length Slider -->
+            <div class="option-group">
+              <div class="option-header">
+                <label class="option-label" for="lengthSlider">
+                  <span class="material-symbols-rounded option-icon">straighten</span>
+                  Longitud
+                </label>
+                <span class="length-badge" id="lengthValue">16</span>
+              </div>
+              <div class="slider-wrapper">
+                <span class="slider-min">8</span>
+                <input
+                  type="range"
+                  id="lengthSlider"
+                  class="slider"
+                  min="8"
+                  max="64"
+                  value="16"
+                  step="1"
+                />
+                <span class="slider-max">64</span>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Character Options -->
+            <div class="option-group">
+              <p class="option-label">
+                <span class="material-symbols-rounded option-icon">tune</span>
+                Caracteres incluidos
+              </p>
+              <div class="toggles-grid">
+
+                <label class="toggle-item" for="toggleUpper">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Mayúsculas</span>
+                    <span class="toggle-example">A B C D …</span>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="toggleUpper" checked />
+                    <span class="toggle-track"></span>
+                  </div>
+                </label>
+
+                <label class="toggle-item" for="toggleLower">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Minúsculas</span>
+                    <span class="toggle-example">a b c d …</span>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="toggleLower" checked />
+                    <span class="toggle-track"></span>
+                  </div>
+                </label>
+
+                <label class="toggle-item" for="toggleNumbers">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Números</span>
+                    <span class="toggle-example">0 1 2 3 …</span>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="toggleNumbers" checked />
+                    <span class="toggle-track"></span>
+                  </div>
+                </label>
+
+                <label class="toggle-item" for="toggleSymbols">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Símbolos</span>
+                    <span class="toggle-example">! @ # $ …</span>
+                  </div>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="toggleSymbols" />
+                    <span class="toggle-track"></span>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /panel -->
+
+      <footer class="app-footer">
+        <!-- GitHub author -->
+        <a
+          href="https://github.com/aalexiscs"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          title="Ver perfil en GitHub"
+        >
+          <!-- GitHub SVG icon -->
+          <svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+          <span>aalexiscs</span>
+        </a>
+
+      </footer>
+
+    </main>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <span class="toast-icon material-symbols-rounded">check_circle</span>
+      <span class="toast-text">¡Contraseña copiada!</span>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
