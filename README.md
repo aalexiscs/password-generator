@@ -2,7 +2,9 @@
 
 Un generador de contraseñas seguro, minimalista y elegante.
 
-[![Pruébalo ahora](https://img.shields.io/badge/🔑%20Pruébalo%20ahora-GitHub%20Pages-7542E5?style=for-the-badge&logoColor=white)](https://aalexiscs.github.io/password-generator/)
+<a href="https://aalexiscs.github.io/password-generator/" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/🔑%20Pruébalo%20ahora-GitHub%20Pages-7542E5?style=for-the-badge&logoColor=white" alt="Pruébalo ahora en GitHub Pages" />
+</a>
 
 ---
 

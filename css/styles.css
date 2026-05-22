@@ -267,11 +267,14 @@ body {
   flex-direction: column;
   gap: 16px;
   transition: transform var(--transition), box-shadow var(--transition);
+  will-change: transform;
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 /* ============================================================
@@ -799,9 +802,9 @@ body {
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.app-header { animation: fadeInUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
-.panel      { animation: fadeInUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.10s both; }
-.app-footer { animation: fadeInUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.20s both; }
+.app-header { animation: fadeInUp 0.40s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.panel      { animation: fadeInUp 0.40s cubic-bezier(0.4, 0, 0.2, 1) 0.08s both; }
+.app-footer { animation: fadeInUp 0.40s cubic-bezier(0.4, 0, 0.2, 1) 0.16s both; }
 
 /* Shake (when no charset selected) */
 @keyframes shake {
