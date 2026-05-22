@@ -1,57 +1,44 @@
-# 🔮 Password Generator
+# 🔑 Password Generator
 
 Un generador de contraseñas seguro, minimalista y elegante.
 
-🌐 **[Ver demo en GitHub Pages](https://aalexiscs.github.io/password-generator/)**
+[![Pruébalo ahora](https://img.shields.io/badge/🔑%20Pruébalo%20ahora-GitHub%20Pages-7542E5?style=for-the-badge&logoColor=white)](https://aalexiscs.github.io/password-generator/)
 
 ---
 
-## ✨ Características
+## Características
 
-- 🎲 **Generación criptográficamente segura** — usa `crypto.getRandomValues()` del navegador
-- 📏 **Longitud configurable** — de 8 a 64 caracteres con slider interactivo
-- 🔡 **Tipos de caracteres** — mayúsculas, minúsculas, números y símbolos
-- 💪 **Indicador de fortaleza** — Débil / Media / Fuerte con barra animada y gradiente morado
-- 📋 **Copiar al portapapeles** — con feedback visual en el botón y notificación toast
-- ⌨️ **Atajos de teclado** — `Enter` para generar, `Ctrl+C` para copiar
-- 📱 **Diseño responsive** — funciona en móvil, tablet y escritorio
-- 🌊 **Animación de fondo** — blobs animados con gradiente morado-rosa en movimiento continuo
-
----
-
-## 🛠️ Stack Tecnológico
-
-| Tecnología | Uso |
-|---|---|
-| **HTML5** | Estructura semántica |
-| **CSS3** | Animaciones de blobs, responsive, spring transitions |
-| **Vanilla JavaScript (ES6+)** | Lógica de generación y UI |
-| **Inter / System Font** | Tipografía principal (sin dependencia externa) |
-| **Fira Code / Cascadia Code** | Fuente monoespaciada para mostrar la contraseña |
-| **Material Symbols Rounded** | Íconos de Google |
-
-> Sin frameworks, sin dependencias npm, sin proceso de build. Solo archivos estáticos.
+- Generación criptográficamente segura con `crypto.getRandomValues()`
+- Longitud configurable de 8 a 64 caracteres
+- Soporte para mayúsculas, minúsculas, números y símbolos
+- Indicador de fortaleza animado (Débil / Media / Fuerte)
+- Copiar al portapapeles con feedback visual y toast
+- Atajos de teclado: `Enter` para generar, `Ctrl+C` para copiar
+- Diseño responsive con animación de fondo en movimiento
 
 ---
 
-## 📁 Estructura del Proyecto
+## Stack
+
+`HTML5` · `CSS3` · `Vanilla JS (ES6+)` · `Material Symbols Rounded`
+
+> Sin frameworks, sin dependencias npm, sin proceso de build.
+
+---
+
+## Estructura
 
 ```
 password-generator/
-├── index.html        # Estructura principal de la app
-├── css/
-│   └── styles.css    # Estilos Firefox Focus, variables, animaciones de blobs
-├── js/
-│   └── app.js        # Lógica de generación y eventos
+├── index.html
+├── css/styles.css
+├── js/app.js
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🔒 Seguridad
+## Seguridad
 
-- Las contraseñas se generan **100% en el navegador** — ningún dato sale a internet
-- Se usa la **Web Crypto API** (`crypto.getRandomValues`) para aleatoriedad criptográfica
-- El algoritmo garantiza que al menos un carácter de cada tipo seleccionado esté presente
-- Se aplica un **shuffle Fisher-Yates** criptográfico para evitar patrones predecibles
+Las contraseñas se generan **100% en el navegador** usando la Web Crypto API. Se garantiza al menos un carácter de cada tipo seleccionado y se aplica un shuffle Fisher-Yates criptográfico.
