@@ -41,7 +41,7 @@ function updateSliderFill() {
   const pct = ((val - min) / (max - min)) * 100;
 
   lengthSlider.style.background =
-    `linear-gradient(to right, #007AFF ${pct}%, rgba(120,120,128,0.16) ${pct}%)`;
+    `linear-gradient(to right, #7542E5 ${pct}%, rgba(21,20,26,0.05) ${pct}%)`;
 
   lengthValue.textContent = val;
 }
