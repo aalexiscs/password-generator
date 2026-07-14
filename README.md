@@ -10,13 +10,15 @@ Un generador de contraseñas seguro, minimalista y elegante.
 
 ## Características
 
-- Generación criptográficamente segura con `crypto.getRandomValues()`
-- Longitud configurable de 8 a 64 caracteres
-- Soporte para mayúsculas, minúsculas, números y símbolos
-- Indicador de fortaleza animado (Débil / Media / Fuerte)
-- Copiar al portapapeles con feedback visual y toast
-- Atajos de teclado: `Enter` para generar, `Ctrl+C` para copiar
-- Diseño responsive con animación de fondo en movimiento
+- **PWA (Progressive Web App):** Instalable en dispositivos móviles y de escritorio, con soporte para uso sin conexión (offline).
+- **Modo Oscuro / Claro:** Soporte nativo para temas con cambio manual y detección automática de preferencias del sistema.
+- **Interfaz Flat Design Moderno:** Diseño limpio, responsive y con animaciones fluidas de fondo.
+- Generación criptográficamente segura con `crypto.getRandomValues()`.
+- Longitud configurable de 8 a 64 caracteres.
+- Soporte para mayúsculas, minúsculas, números y símbolos.
+- Indicador de fortaleza animado (Débil / Media / Fuerte).
+- Copiar al portapapeles con feedback visual y toast.
+- Atajos de teclado: `Enter` para generar, `Ctrl+C` para copiar.
 
 ---
 
@@ -33,8 +35,13 @@ Un generador de contraseñas seguro, minimalista y elegante.
 ```
 password-generator/
 ├── index.html
-├── css/styles.css
-├── js/app.js
+├── manifest.json
+├── sw.js
+├── icon.svg
+├── css/
+│   └── styles.css
+├── js/
+│   └── app.js
 ├── .gitignore
 └── README.md
 ```
