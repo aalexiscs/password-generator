@@ -13,6 +13,8 @@ const CHARS = {
 };
 
 // ── DOM references ───────────────────────────────────────────
+const themeToggle     = document.getElementById('themeToggle');
+const themeIcon       = document.getElementById('themeIcon');
 const lengthSlider    = document.getElementById('lengthSlider');
 const lengthValue     = document.getElementById('lengthValue');
 const toggleUpper     = document.getElementById('toggleUpper');
@@ -21,6 +23,7 @@ const toggleNumbers   = document.getElementById('toggleNumbers');
 const toggleSymbols   = document.getElementById('toggleSymbols');
 const toggleAutoCopy  = document.getElementById('toggleAutoCopy');
 const generateBtn     = document.getElementById('generateBtn');
+const shareBtn        = document.getElementById('shareBtn');
 const passwordText    = document.getElementById('passwordText');
 const copyBtn         = document.getElementById('copyBtn');
 const copyIcon        = document.getElementById('copyIcon');
@@ -34,6 +37,31 @@ let currentPassword = '';
 let copyTimeout     = null;
 let toastTimeout    = null;
 
+// ── Theme Management ─────────────────────────────────────────
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeIcon.textContent = 'light_mode';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeIcon.textContent = 'dark_mode';
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  themeIcon.textContent = newTheme === 'dark' ? 'light_mode' : 'dark_mode';
+  
+  updateSliderFill();
+}
+
 // ── Slider: update fill & badge ──────────────────────────────
 function updateSliderFill() {
   const min = Number(lengthSlider.min);
@@ -41,8 +69,13 @@ function updateSliderFill() {
   const val = Number(lengthSlider.value);
   const pct = ((val - min) / (max - min)) * 100;
 
+  // Get colors from CSS variables
+  const rootStyles = getComputedStyle(document.documentElement);
+  const primaryColor = rootStyles.getPropertyValue('--primary-color').trim() || '#6366F1';
+  const trackColor = rootStyles.getPropertyValue('--bg-input').trim() || '#F8FAFC';
+
   lengthSlider.style.background =
-    `linear-gradient(to right, #7542E5 ${pct}%, rgba(21,20,26,0.05) ${pct}%)`;
+    `linear-gradient(to right, ${primaryColor} ${pct}%, ${trackColor} ${pct}%)`;
 
   lengthValue.textContent = val;
 }
@@ -51,7 +84,6 @@ function updateSliderFill() {
 function generatePassword() {
   const length = Number(lengthSlider.value);
 
-  // Build charset from active toggles
   let charset = '';
   const required = [];
 
@@ -60,20 +92,17 @@ function generatePassword() {
   if (toggleNumbers.checked) { charset += CHARS.numbers; required.push(randomChar(CHARS.numbers)); }
   if (toggleSymbols.checked) { charset += CHARS.symbols; required.push(randomChar(CHARS.symbols)); }
 
-  // At least one option must be selected
   if (!charset) {
     shakeCard();
     return;
   }
 
-  // Fill remaining characters
   const remaining = length - required.length;
   const pool = [];
   for (let i = 0; i < remaining; i++) {
     pool.push(randomChar(charset));
   }
 
-  // Merge required + pool and shuffle
   const all = [...required, ...pool];
   shuffleArray(all);
 
@@ -82,7 +111,6 @@ function generatePassword() {
   updateStrength(currentPassword);
   enableCopyBtn();
 
-  // Auto-copy if enabled
   if (toggleAutoCopy && toggleAutoCopy.checked) {
     copyPassword();
   }
@@ -108,8 +136,7 @@ function shuffleArray(arr) {
 // ── Display password with animation ─────────────────────────
 function displayPassword(pwd) {
   passwordText.classList.remove('placeholder', 'pop-in');
-  // Force reflow to restart animation
-  void passwordText.offsetWidth;
+  void passwordText.offsetWidth; // Force reflow
   passwordText.classList.add('pop-in');
   passwordText.textContent = pwd;
 }
@@ -118,11 +145,9 @@ function displayPassword(pwd) {
 function calcStrength(pwd) {
   let score = 0;
 
-  // Length score
   if (pwd.length >= 12) score++;
   if (pwd.length >= 20) score++;
 
-  // Variety score
   if (/[A-Z]/.test(pwd)) score++;
   if (/[a-z]/.test(pwd)) score++;
   if (/[0-9]/.test(pwd)) score++;
@@ -144,11 +169,9 @@ function updateStrength(pwd) {
 
   strengthSection.style.display = 'flex';
 
-  // Reset classes
   strengthBar.className   = 'strength-bar';
   strengthLabel.className = 'strength-label';
 
-  // Apply new level
   strengthBar.classList.add(level);
   strengthLabel.classList.add(level);
   strengthLabel.textContent = STRENGTH_LABELS[level];
@@ -162,7 +185,6 @@ async function copyPassword() {
     await navigator.clipboard.writeText(currentPassword);
     showCopiedFeedback();
   } catch {
-    // Fallback for older browsers
     const ta = document.createElement('textarea');
     ta.value = currentPassword;
     ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
@@ -175,7 +197,6 @@ async function copyPassword() {
 }
 
 function showCopiedFeedback() {
-  // Button feedback
   copyBtn.classList.add('copied');
   copyIcon.textContent = 'check';
 
@@ -185,7 +206,6 @@ function showCopiedFeedback() {
     copyIcon.textContent = 'content_copy';
   }, 2000);
 
-  // Toast notification
   clearTimeout(toastTimeout);
   toast.classList.add('toast-visible');
   toastTimeout = setTimeout(() => {
@@ -199,7 +219,7 @@ function enableCopyBtn() {
 
 // ── Shake animation when no charset selected ─────────────────
 function shakeCard() {
-  const card = document.querySelector('.password-card');
+  const card = document.querySelector('.main-card');
   card.classList.remove('shake');
   void card.offsetWidth;
   card.classList.add('shake');
@@ -211,30 +231,59 @@ function guardToggles(changedToggle) {
   const anyChecked = all.some(t => t.checked);
 
   if (!anyChecked) {
-    // Re-enable the one that was just unchecked
     changedToggle.checked = true;
   }
 }
 
 // ── Event listeners ──────────────────────────────────────────
-lengthSlider.addEventListener('input', () => {
-  updateSliderFill();
-});
+themeToggle.addEventListener('click', toggleTheme);
+
+lengthSlider.addEventListener('input', updateSliderFill);
 
 generateBtn.addEventListener('click', generatePassword);
+
+shareBtn.addEventListener('click', async () => {
+  const shareData = {
+    title: 'Password Generator',
+    text: 'Genera contraseñas seguras fácilmente.',
+    url: 'https://aalexiscs.github.io/password-generator/'
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareData.url);
+      
+      // Reutilizamos el toast para mostrar que se copió el enlace
+      const originalText = toast.querySelector('.toast-text').textContent;
+      toast.querySelector('.toast-text').textContent = 'Enlace copiado';
+      
+      clearTimeout(toastTimeout);
+      toast.classList.add('toast-visible');
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('toast-visible');
+        setTimeout(() => {
+          toast.querySelector('.toast-text').textContent = originalText;
+        }, 300); // Esperar a que termine la animación de salida
+      }, 2000);
+    }
+  } catch (err) {
+    console.error('Error al compartir:', err);
+  }
+});
+
 copyBtn.addEventListener('click', copyPassword);
 
 [toggleUpper, toggleLower, toggleNumbers, toggleSymbols].forEach(toggle => {
   toggle.addEventListener('change', () => guardToggles(toggle));
 });
 
-// Keyboard shortcut: Enter to generate, Ctrl+C to copy
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && document.activeElement !== copyBtn) {
     generateBtn.click();
   }
   if ((e.ctrlKey || e.metaKey) && e.key === 'c' && currentPassword) {
-    // Only intercept if not selecting text
     if (!window.getSelection()?.toString()) {
       e.preventDefault();
       copyPassword();
@@ -243,5 +292,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ── Init ─────────────────────────────────────────────────────
+initTheme();
 updateSliderFill();
-generatePassword(); // Generate one on load
+generatePassword();
