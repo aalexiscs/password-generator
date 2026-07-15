@@ -35,7 +35,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Interceptar peticiones de red y servir desde caché si es posible
+// Interceptar peticiones de red (Estrategia Network First)
 self.addEventListener('fetch', (event) => {
   // Ignorar peticiones que no sean GET o que vayan a otros dominios (como Google Fonts)
   if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
@@ -43,19 +43,17 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Devolver la versión en caché si existe, si no, hacer la petición a la red
-        return response || fetch(event.request).then((fetchResponse) => {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, fetchResponse.clone());
-            return fetchResponse;
-          });
+    fetch(event.request)
+      .then((networkResponse) => {
+        // Si la red funciona, guardamos una copia en caché y devolvemos la respuesta
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
         });
       })
       .catch(() => {
-        // Si falla la red y no está en caché, podríamos devolver una página offline aquí
-        // En este caso, como es una SPA simple, el index.html debería estar en caché
+        // Si la red falla (offline), intentamos devolver la versión en caché
+        return caches.match(event.request);
       })
   );
 });
